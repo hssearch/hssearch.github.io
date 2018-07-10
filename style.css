@@ -140,6 +140,7 @@ nav input:checked + div {
 nav div {
 	width: 100vw;
 	height: 100vh;
+	background: rgba(0, 0, 0, .1);
 	-webkit-box-orient: vertical;
 	-webkit-box-direction: normal;
 			-ms-flex-direction: column;
@@ -166,6 +167,12 @@ nav section {
 	-webkit-box-shadow: 0 8px 16px rgba(0, 0, 0, .25);
 	        box-shadow: 0 8px 16px rgba(0, 0, 0, .25);
 }
+nav h2 {
+	font-size: 1.1em;
+}
+nav h2,nav h3 {
+	margin-top: .5em;
+}
 #about section {
 	width: 60vw;
 	max-width: 700px;
@@ -183,6 +190,7 @@ nav section {
 	margin: 0 auto
 }
 #author section {
+	text-align: center;
 	width: 250px;
 }
 #author img {
@@ -192,6 +200,5 @@ nav section {
 	margin: 0 auto
 }
 #author h2 {
-	text-align: center;
 	margin-top: .3em;
 }

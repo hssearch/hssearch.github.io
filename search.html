@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="style.css" />
 	<title>HSSearch | 高速な検索をあなたの手に</title>
+	<script>
+		function enter() {
+			if (window.event.keyCode == 13) {
+				alert('//googleapis.com/customsearch/v1?key=AIzaSyD4HoWPYCz9YDWiQCAPARVVbXDh5wq28WA&cx=001556139409281098772:eyu92k6escc&q=' + document.SearchBox.SearchWord.value);
+			}
+		}
+	</script>
 </head>
+
 <body>
 	<header>
 		<nav>
@@ -31,7 +40,7 @@
 						<p>
 							トップページはGithubPagesによって構築されている。高速化のためロゴは全てsvgシンボルを利用している。<br>
 						</p>
-					</section>
+					</section>っっっ
 				</div>
 				About
 			</label>
@@ -55,9 +64,9 @@
 	<main>
 		<section>
 			<img src="logo.svg" id="BigLogo">
-			<div id="SearchBox">
-				<input type="text">
-			</div>
+			<form id="SearchBox">
+				<input type="text" id="SearchWord" onkeydown="enter();" autofocus>
+			</form>
 		</section>
 	</main>
 	<footer>

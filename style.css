@@ -173,6 +173,9 @@ nav h2 {
 nav h2,nav h3 {
 	margin-top: .5em;
 }
+nav img {
+	margin: 0 auto .5em auto;
+}
 #about section {
 	width: 60vw;
 	max-width: 700px;
@@ -187,7 +190,6 @@ nav h2,nav h3 {
 	width: 20vw;
 	min-width: 200px;
 	max-width: 500px;
-	margin: 0 auto
 }
 #author section {
 	text-align: center;
@@ -197,7 +199,6 @@ nav h2,nav h3 {
 	width: 10vw;
 	min-width: 150px;
 	max-width: 300px;
-	margin: 0 auto
 }
 #author h2 {
 	margin-top: .3em;

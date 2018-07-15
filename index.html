@@ -1,71 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="style.css" />
-	<title>HSSearch | 高速な検索をあなたの手に</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css" />
+  <title>HSSearch | 高速な検索をあなたの手に</title>
 </head>
 <body>
-	<header>
-		<nav>
-			<label>
-				<input type="checkbox" class="checkbox" id="about-check"/>
-				<div id="about">
-					<section>
-						<img src="logo.svg" id="about-logo">
-						<h1>HSSearch | 高速な検索をあなたの手に</h1>
-						<h2>About</h2>
-						<p>
-							この検索エンジンでは、全ての既存のサイトにおいてGoogleAMPのような高速なアクセスが可能になる。
-						</p>
-						<h2>Logo</h2>
-						<p>
-							検索エンジン、 HSS は HighSpeedpSearch の略であり、より高速なブラウジングを提供したいという願いからつけられた。
-						</p>
-						<p>
-							Google同様のデザインな反面、モノクロなロゴを用い無骨でありながらシンプルなデザインになっている。
-						</p>
-						<h2>How</h2>
-						<p>
-							既存のサイトのHTMLをJSONで取得しJSで整形し、独自のHTMLとCSSで装飾している。
-						</p>
-						<p>
-							トップページはGithubPagesによって構築され、RubyはCloud9で動作している。また、高速化・高画質化のためロゴは全てSVGシンボルを利用している。<br>
-						</p>
-					</section>
-				</div>
-				About
-			</label>
-			<label>
-				<input type="checkbox" class="checkbox" id="author-check"/>
-				<div id="author">
-					<a href="//facebook.com/Yoshiki.Tam" target=”_blank”>
-						<section>
-							<img src="profile.png" id="profile">
-							<h2>Yoshiki Tamura</h2>
-							<p>
-								17 years
-							</p>
-							<p>
-								Tokyo, Japan
-							</p>
-						</section>
-					</a>
-				</div>
-				Author
-			</label>
-		</nav>
-	</header>
-	<main>
-		<section>
-			<img src="logo.svg" id="BigLogo">
-			<form id="SearchBox" onsubmit="window.open('//www.googleapis.com/customsearch/v1?key=AIzaSyD4HoWPYCz9YDWiQCAPARVVbXDh5wq28WA&cx=001556139409281098772:eyu92k6escc&q=' + document.getElementById('SearchWord').value); return false;">
-			  <input type="text" id="SearchWord" autofocus>
-			</form>
-		</section>
-	</main>
-	<footer>
-		Copyright © 2018<br class="br"><a href="//facebook.com/Yoshiki.Tam" target="_blank">　YoshikiTamura　</a>All Rights Reserved.
-	</footer>
+  <header>
+    <nav>
+      <label>
+        <input type="checkbox" class="checkbox" id="about-check"/>
+        <div id="about">
+          <section>
+            <img src="logo.svg" id="about-logo">
+            <h1>HSSearch | 高速な検索をあなたの手に</h1>
+            <h2>About</h2>
+            <p>
+              この検索エンジンでは、全ての既存のサイトにおいてGoogleAMPのような高速なアクセスが可能になる。
+            </p>
+            <h2>Logo</h2>
+            <p>
+              検索エンジン、 HSS は HighSpeedpSearch の略であり、より高速なブラウジングを提供したいという願いからつけられた。
+            </p>
+            <p>
+              Google同様のデザインな反面、モノクロなロゴを用い無骨でありながらシンプルなデザインになっている。
+            </p>
+            <h2>How</h2>
+            <p>
+              既存のサイトのHTMLをJSONで取得しJSで整形し、独自のHTMLとCSSで装飾している。
+            </p>
+            <p>
+              トップページはGithubPagesによって構築され、RubyはCloud9で動作している。また、高速化・高画質化のためロゴは全てSVGシンボルを利用している。<br>
+            </p>
+          </section>
+        </div>
+        About
+      </label>
+      <label>
+        <input type="checkbox" class="checkbox" id="author-check"/>
+        <div id="author">
+          <a href="//facebook.com/Yoshiki.Tam" target=”_blank”>
+            <section>
+              <img src="profile.png" id="profile">
+              <h2>Yoshiki Tamura</h2>
+              <p>
+                17 years
+              </p>
+              <p>
+                Tokyo, Japan
+              </p>
+            </section>
+          </a>
+        </div>
+        Author
+      </label>
+    </nav>
+  </header>
+  <main>
+    <section id="Search">
+      <a href="/">
+        <img src="logo.svg" id="BigLogo">
+      </a>
+      <form id="SearchBox" onsubmit="window.location.href = '/search.html?url=' + document.getElementById('SearchWord').value; return false;">
+        <input type="text" id="SearchWord" placeholder="HSSで検索" autofocus>
+      </form>
+    </section>
+  </main>
+  <footer>
+    Copyright © 2018<br class="br"><a href="//facebook.com/Yoshiki.Tam" target="_blank">　YoshikiTamura　</a>All Rights Reserved.
+  </footer>
 </body>
 </html>

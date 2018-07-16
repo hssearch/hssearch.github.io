@@ -67,15 +67,15 @@
       if (urlParams.has('url')) {
         document.getElementById('SearchWord').value = urlParams.get('url');
         let url = "https://www.googleapis.com/customsearch/v1?key=AIzaSyD4HoWPYCz9YDWiQCAPARVVbXDh5wq28WA&cx=001556139409281098772:eyu92k6escc&filter=1&q=" + urlParams.get('url');
-        let xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-            document.getElementById('SearchResults').textContent = this.responseText;
-            document.getElementById('SearchResults').insertAdjacentHTML('afterbegin', JSON.parse(this)["items"]["title"]);
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", url, true);
+        xhr.onload = function(){
+          let items = JSON.parse(xhr.response).items;
+          for (let i = 0; i < items.length; i++) {
+            document.getElementById('SearchResults').insertAdjacentHTML('afterbegin', "<a href=" + items[i].link + " target=&quot;_blank&quot;><div><strong>" + items[i].title + "</strong><p>" + items[i].snippet + "</p></div></a><br><br>");
           }
         };
-        xmlhttp.open("GET", url, true);
-        xmlhttp.send();
+        xhr.send();
       }
     </script>
   </main>

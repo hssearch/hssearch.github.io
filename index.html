@@ -55,13 +55,33 @@
       <a href="/">
         <img src="logo.svg" id="BigLogo">
       </a>
-      <form id="SearchBox" onsubmit="window.location.href = '/search.html?url=' + document.getElementById('SearchWord').value; return false;">
-        <input type="text" id="SearchWord" placeholder="HSSで検索" autofocus>
+      <form id="SearchBox" onsubmit="window.location.href = '?search=' + document.getElementById('SearchWord').value; return false;">
+        <input type="text" id="SearchWord" placeholder="HSSで検索">
       </form>
+      <section id="SearchResults">
+      </section>
     </section>
   </main>
   <footer>
     Copyright © 2018<br class="br"><a href="//facebook.com/Yoshiki.Tam" target="_blank">　YoshikiTamura　</a>All Rights Reserved.
   </footer>
 </body>
+<script>
+  let urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('search')) {
+    document.getElementById('SearchWord').value = urlParams.get('search');
+    let url = "https://www.googleapis.com/customsearch/v1?key=AIzaSyD4HoWPYCz9YDWiQCAPARVVbXDh5wq28WA&cx=001556139409281098772:eyu92k6escc&filter=1&q=" + urlParams.get('search');
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", url, true);
+    xhr.onload = function(){
+      let items = JSON.parse(xhr.response).items;
+      for (let i = 0; i < items.length; i++) {
+        document.getElementById('SearchResults').insertAdjacentHTML('afterbegin', "<a href=" + items[i].link + " target=&quot;_blank&quot;><div><strong>" + items[i].title + "</strong><p>" + items[i].snippet + "</p></div></a><br><br>");
+      }
+    }
+    xhr.send();
+  } else {
+    document.getElementById('SearchWord').focus()
+  };
+</script>
 </html>

@@ -211,6 +211,6 @@ nav img {
 
 #SearchResults {
   width: 100%;
-  height: 30vh;
+  max-height: 30vh;
   overflow: scroll;
 }

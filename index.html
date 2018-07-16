@@ -76,7 +76,7 @@
     xhr.onload = function(){
       let items = JSON.parse(xhr.response).items;
       for (let i = 0; i < items.length; i++) {
-        document.getElementById('SearchResults').insertAdjacentHTML('afterbegin', "<a href=" + items[i].link + " target=&quot;_blank&quot;><div><strong>" + items[i].title + "</strong><p>" + items[i].snippet + "</p></div></a><br><br>");
+        document.getElementById('SearchResults').insertAdjacentHTML('beforeend', "<a href=" + items[i].link + " target=&quot;_blank&quot;><div><strong>" + items[i].title + "</strong><p>" + items[i].snippet + "</p></div></a><br><br>");
       }
     }
     xhr.send();

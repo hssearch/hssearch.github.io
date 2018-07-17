@@ -55,7 +55,7 @@
       <a href="/">
         <img src="logo.svg" id="BigLogo">
       </a>
-      <form id="SearchBox" onsubmit="window.location.href = '?search=' + document.getElementById('SearchWord').value; return false;">
+      <form id="SearchBox" onsubmit="GoogleSearch(document.getElementById('SearchWord').value); let parameter = '?search=' + document.getElementById('SearchWord').value; history.replaceState('','',parameter); return false;">
         <input type="text" id="SearchWord" placeholder="HSSで検索">
       </form>
       <section id="SearchResults">
@@ -67,21 +67,39 @@
   </footer>
 </body>
 <script>
+  /*@cc_on
+  eval((function(props) {
+    var code = [];
+    for (var i = 0 l = props.length;i<l;i++){
+      var prop = props[i];
+      window['_'+prop]=window[prop];
+      code.push(prop+'=_'+prop)
+    }
+    return 'var '+code.join(',');
+  })('document self top parent alert setInterval clearInterval setTimeout clearTimeout'.split(' ')));
+  @*/
   let urlParams = new URLSearchParams(window.location.search);
   if (urlParams.has('search')) {
     document.getElementById('SearchWord').value = urlParams.get('search');
-    let url = "https://www.googleapis.com/customsearch/v1?key=AIzaSyD4HoWPYCz9YDWiQCAPARVVbXDh5wq28WA&cx=001556139409281098772:eyu92k6escc&filter=1&q=" + urlParams.get('search');
+    GoogleSearch(urlParams.get('search'));
+  } else {
+    document.getElementById('SearchWord').focus()
+  }
+  function GoogleSearch(SearchWord) {
+    let url = "https://www.googleapis.com/customsearch/v1?key=AIzaSyD4HoWPYCz9YDWiQCAPARVVbXDh5wq28WA&cx=001556139409281098772:eyu92k6escc&filter=1&q=" + SearchWord;
     let xhr = new XMLHttpRequest();
     xhr.open("GET", url, true);
     xhr.onload = function(){
       let items = JSON.parse(xhr.response).items;
-      for (let i = 0; i < items.length; i++) {
-        document.getElementById('SearchResults').insertAdjacentHTML('beforeend', "<a href=" + items[i].link + " target=&quot;_blank&quot;><div><strong>" + items[i].title + "</strong><p>" + items[i].snippet + "</p></div></a><br><br>");
+      for (let i = 0; i < items.length|0; i=(i+1)|0) {
+        let a = "<a href=";
+        let b = " target=&quot;_blank&quot;><div><strong>";
+        let c = "</strong><p>";
+        let d = "</p></div></a><br><br>";
+        document.getElementById('SearchResults').insertAdjacentHTML('beforeend', a + items[i].link + b + items[i].title + c + items[i].snippet + d);
       }
     }
     xhr.send();
-  } else {
-    document.getElementById('SearchWord').focus()
-  };
+  }
 </script>
 </html>

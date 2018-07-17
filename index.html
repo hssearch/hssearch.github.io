@@ -55,7 +55,7 @@
       <a href="/">
         <img src="logo.svg" id="BigLogo">
       </a>
-      <form id="SearchBox" onsubmit="GoogleSearch(document.getElementById('SearchWord').value); let parameter = '?search=' + document.getElementById('SearchWord').value; history.replaceState('','',parameter); return false;">
+      <form id="SearchBox" onsubmit="let SearchWord = document.getElementById('SearchWord').value; GoogleSearch(SearchWord); let search = '?search='; history.replaceState('','',search + SearchWord); return false;">
         <input type="text" id="SearchWord" placeholder="HSSで検索">
       </form>
       <section id="SearchResults">
@@ -79,9 +79,10 @@
   })('document self top parent alert setInterval clearInterval setTimeout clearTimeout'.split(' ')));
   @*/
   let urlParams = new URLSearchParams(window.location.search);
+  let GetUrlParams = urlParams.get('search');
   if (urlParams.has('search')) {
-    document.getElementById('SearchWord').value = urlParams.get('search');
-    GoogleSearch(urlParams.get('search'));
+    document.getElementById('SearchWord').value = GetUrlParams;
+    GoogleSearch(GetUrlParams);
   } else {
     document.getElementById('SearchWord').focus()
   }
@@ -101,6 +102,8 @@
       }
     }
     xhr.send();
+    let HSSearch = ' | HSSearch';
+    document.title = GetUrlParams + HSSearch;
   }
 </script>
 </html>

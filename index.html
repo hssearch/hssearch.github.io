@@ -91,7 +91,8 @@
     xhr.open("GET", url, true);
     xhr.onload = function(){
       let items = JSON.parse(xhr.response).items;
-      for (let i = 0; i < items.length|0; i=(i+1)|0) {
+      var items_length = items.length;
+      for (let i = 0; i < items_length|0; i=(i+1)|0) {
         let a = "<a href=";
         let b = " target=&quot;_blank&quot;><div><strong>";
         let c = "</strong><p>";

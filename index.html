@@ -55,7 +55,7 @@
       <a href="/">
         <img src="logo.svg" id="BigLogo">
       </a>
-      <form id="SearchBox" onsubmit="let SearchWord = document.getElementById('SearchWord').value; GoogleSearch(SearchWord); let search = '?search='; history.replaceState('','',search + SearchWord); return false;">
+      <form id="SearchBox" onsubmit="let a = document.getElementById('SearchWord').value; GoogleSearch(a); let search = '?search='; history.replaceState('','',search + a); return false;">
         <input type="text" id="SearchWord" placeholder="HSSで検索">
       </form>
       <section id="SearchResults">
@@ -69,41 +69,42 @@
 <script>
   /*@cc_on
   eval((function(props) {
-    var code = [];
-    for (var i = 0 l = props.length;i<l;i++){
-      var prop = props[i];
-      window['_'+prop]=window[prop];
-      code.push(prop+'=_'+prop)
+    var a = [];
+    var b = props.length;
+    for (let i = 0 l = b|0;i<l|0;i=(i+1)|0){
+      let c = props[i];
+      window['_'+c]=window[c];
+      a.push(c+'=_'+c)
     }
-    return 'var '+code.join(',');
+    return 'var '+a.join(',');
   })('document self top parent alert setInterval clearInterval setTimeout clearTimeout'.split(' ')));
   @*/
-  let urlParams = new URLSearchParams(window.location.search);
-  let GetUrlParams = urlParams.get('search');
-  if (urlParams.has('search')) {
-    document.getElementById('SearchWord').value = GetUrlParams;
-    GoogleSearch(GetUrlParams);
+  let d = new URLSearchParams(window.location.search);
+  let e = d.get('search');
+  if (d.has('search')) {
+    document.getElementById('SearchWord').value = e;
+    GoogleSearch(e);
   } else {
     document.getElementById('SearchWord').focus()
   }
   function GoogleSearch(SearchWord) {
-    let url = "https://www.googleapis.com/customsearch/v1?key=AIzaSyD4HoWPYCz9YDWiQCAPARVVbXDh5wq28WA&cx=001556139409281098772:eyu92k6escc&filter=1&q=" + SearchWord;
-    let xhr = new XMLHttpRequest();
-    xhr.open("GET", url, true);
-    xhr.onload = function(){
-      let items = JSON.parse(xhr.response).items;
-      var items_length = items.length;
-      for (let i = 0; i < items_length|0; i=(i+1)|0) {
-        let a = "<a href=";
-        let b = " target=&quot;_blank&quot;><div><strong>";
-        let c = "</strong><p>";
-        let d = "</p></div></a><br><br>";
-        document.getElementById('SearchResults').insertAdjacentHTML('beforeend', a + items[i].link + b + items[i].title + c + items[i].snippet + d);
+    let f = "https://www.googleapis.com/customsearch/v1?key=AIzaSyD4HoWPYCz9YDWiQCAPARVVbXDh5wq28WA&cx=001556139409281098772:eyu92k6escc&filter=1&q=" + SearchWord;
+    let j = new XMLHttpRequest();
+    j.open("GET", f, true);
+    j.onload = function(){
+      let k = JSON.parse(j.response).items;
+      var l = k.length;
+      for (let i = 0; i < l|0; i=(i+1)|0) {
+        let o = "<a href=";
+        let p = " target=&quot;_blank&quot;><div><strong>";
+        let q = "</strong><p>";
+        let r = "</p></div></a><br><br>";
+        document.getElementById('SearchResults').insertAdjacentHTML('beforeend', o + k[i].link + p + k[i].title + q + k[i].snippet + r);
       }
     }
-    xhr.send();
-    let HSSearch = ' | HSSearch';
-    document.title = GetUrlParams + HSSearch;
+    j.send();
+    let s = ' | HSSearch';
+    document.title = e + s;
   }
 </script>
 </html>

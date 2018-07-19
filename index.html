@@ -2,7 +2,11 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="x-dns-prefetch-control" content="on">
   <link rel="stylesheet" href="style.css" />
+  <link rel="dns-prefetch" href="https://www.googleapis.com">
+  <link rel="preconnect" href="https://www.googleapis.com" crossorigin>
+  <link rel="preload" href="" as="style" crossorigin>
   <title>HSSearch | 高速な検索をあなたの手に</title>
 </head>
 <body>
@@ -12,7 +16,7 @@
         <input type="checkbox" class="checkbox" id="about-check"/>
         <div id="about">
           <section>
-            <img src="logo.svg" id="about-logo">
+            <img src="logo.svg" id="about-logo" rel="preload">
             <h1>HSSearch | 高速な検索をあなたの手に</h1>
             <h2>About</h2>
             <p>
@@ -35,7 +39,7 @@
         <div id="author">
           <a href="//facebook.com/Yoshiki.Tam" target=”_blank”>
             <section>
-              <img src="profile.png" id="profile">
+              <img src="profile.png" id="profile" rel="preload">
               <h2>Yoshiki Tamura</h2>
               <p>
                 17 years
@@ -55,7 +59,7 @@
       <a href="/">
         <img src="logo.svg" id="BigLogo">
       </a>
-      <form id="SearchBox" onsubmit="let a = document.getElementById('SearchWord').value; GoogleSearch(a); let search = '?search='; history.replaceState('','',search + a); return false;">
+      <form id="SearchBox" onsubmit="let a = document.getElementById('SearchWord').value; GoogleSearch(a); let search = '?search='; history.replaceState('',a,search + a); return false;">
         <input type="text" id="SearchWord" placeholder="HSSで検索">
       </form>
       <section id="SearchResults">
@@ -79,6 +83,7 @@
     return 'var '+a.join(',');
   })('document self top parent alert setInterval clearInterval setTimeout clearTimeout'.split(' ')));
   @*/
+  window.renderComplete = true;
   let d = new URLSearchParams(window.location.search);
   let e = d.get('search');
   if (d.has('search')) {
@@ -88,23 +93,38 @@
     document.getElementById('SearchWord').focus()
   }
   function GoogleSearch(SearchWord) {
-    let f = "https://www.googleapis.com/customsearch/v1?key=AIzaSyD4HoWPYCz9YDWiQCAPARVVbXDh5wq28WA&cx=001556139409281098772:eyu92k6escc&filter=1&q=" + SearchWord;
-    let j = new XMLHttpRequest();
-    j.open("GET", f, true);
-    j.onload = function(){
-      let k = JSON.parse(j.response).items;
-      var l = k.length;
-      for (let i = 0; i < l|0; i=(i+1)|0) {
+    let urlWord = "https://www.googleapis.com/customsearch/v1?key=AIzaSyD4HoWPYCz9YDWiQCAPARVVbXDh5wq28WA&cx=001556139409281098772:eyu92k6escc&filter=1&q=" ;
+    let url = urlWord + SearchWord;
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", url, true);
+    xhr.onload = function(){
+      let json = JSON.parse(xhr.response).items;
+      let length = json.length;
+      for (let i = 0; i < length|0; i=(i+1)|0) {
         let o = "<a href=";
         let p = " target=&quot;_blank&quot;><div><strong>";
         let q = "</strong><p>";
         let r = "</p></div></a><br><br>";
-        document.getElementById('SearchResults').insertAdjacentHTML('beforeend', o + k[i].link + p + k[i].title + q + k[i].snippet + r);
+        document.getElementById('SearchResults').insertAdjacentHTML('beforeend', o + json[i].link + p + json[i].title + q + json[i].snippet + r);
       }
+      let prerender = document.createElement("link");
+      prerender.rel = "prerender";
+      prerender.href = json[1].link;
+      document.head.appendChild(prerender);
     }
-    j.send();
-    let s = ' | HSSearch';
-    document.title = e + s;
+    xhr.send();
+    let hss = ' | HSSearch';
+    document.title = SearchWord + hss;
+  }
+  let link = document.getElementsByTagName("a");
+  let linklength = link.length;
+  for(i = 0; i < linklength|0; i=(i+1)|0) {
+      link[i].addEventListener("mousedown", function(e) {
+          if (e.button === 0) {
+              e.preventDefault();
+              location.href = this.href;
+          }
+      }, false)
   }
 </script>
 </html>

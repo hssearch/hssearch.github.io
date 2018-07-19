@@ -5,7 +5,9 @@
   <meta http-equiv="x-dns-prefetch-control" content="on">
   <link rel="stylesheet" href="style.css" />
   <link rel="dns-prefetch" href="https://www.googleapis.com">
+  <link rel="dns-prefetch" href="https://hssearch.github.io">
   <link rel="preconnect" href="https://www.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://hssearch.github.io" crossorigin>
   <link rel="preload" href="" as="style" crossorigin>
   <title>HSSearch | 高速な検索をあなたの手に</title>
 </head>
@@ -111,6 +113,12 @@
       prerender.rel = "prerender";
       prerender.href = json[1].link;
       document.head.appendChild(prerender);
+      let prefetch = document.createElement("link");
+      prefetch.rel = "prefetch";
+      prefetch.href = json[1].link;
+      prefetch.as = "html";
+      prefetch.crossorigin = "anonymous";
+      document.head.appendChild(prefetch);
     }
     xhr.send();
     let hss = ' | HSSearch';

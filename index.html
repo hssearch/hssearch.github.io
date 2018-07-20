@@ -4,13 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-dns-prefetch-control" content="on">
-  <link rel="stylesheet" href="style.css" />
+  <link rel="dns-prefetch" href="//hssearch.github.io">
   <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
   <link rel="dns-prefetch" href="//www.googleapis.com">
-  <link rel="dns-prefetch" href="//hssearch.github.io">
-  <link rel="preconnect" href="//www.googleapis.com" crossorigin>
   <link rel="preconnect" href="//hssearch.github.io" crossorigin>
-  <link rel="preload" href="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js" as="js" crossorigin>
+  <link rel="preconnect" href="//cdnjs.cloudflare.com" crossorigin>
+  <link rel="preconnect" href="//www.googleapis.com" crossorigin>
+  <link rel="preload" href="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js" as="script" crossorigin>
+  <link rel="stylesheet" href="style.css">
   <title>HSSearch | 高速な検索をあなたの手に</title>
 </head>
 <body>
@@ -66,7 +67,7 @@
       <a href="/">
         <img src="logo.svg" id="BigLogo">
       </a>
-      <form id="SearchBox" onsubmit="let a = document.getElementById('SearchWord').value; GoogleSearch(a); let search = '?search='; history.replaceState('',a,search + a); return false;">
+      <form id="SearchBox" onsubmit="let a = document.getElementById('SearchWord').value,search = '?search='; GoogleSearch(a);  history.replaceState('',a,search + a); return false;">
         <input type="text" id="SearchWord" placeholder="HSSで検索">
       </form>
       <section id="SearchResults">
@@ -77,7 +78,6 @@
     Copyright © 2018<br class="br"><a href="//facebook.com/Yoshiki.Tam" target="_blank">　YoshikiTamura　</a>All Rights Reserved.
   </footer>
 </body>
-<script src='//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js' defer></script>
 <script>
   /*@cc_on
   eval((function(props) {
@@ -92,8 +92,8 @@
   })('document self top parent alert setInterval clearInterval setTimeout clearTimeout'.split(' ')));
   @*/
   window.renderComplete = true;
-  let d = new URLSearchParams(window.location.search);
-  let e = d.get('search');
+  let d = new URLSearchParams(window.location.search),
+      e = d.get('search');
   if (d.has('search')) {
     document.getElementById('SearchWord').value = e;
     GoogleSearch(e);
@@ -101,35 +101,34 @@
     document.getElementById('SearchWord').focus()
   }
   function GoogleSearch(SearchWord) {
-    let urlWord = "https://www.googleapis.com/customsearch/v1?key=AIzaSyD4HoWPYCz9YDWiQCAPARVVbXDh5wq28WA&cx=001556139409281098772:eyu92k6escc&filter=1&q=" ;
-    let url = urlWord + SearchWord;
-    let xhr = new XMLHttpRequest();
+    let urlWord = "https://www.googleapis.com/customsearch/v1?key=AIzaSyD4HoWPYCz9YDWiQCAPARVVbXDh5wq28WA&cx=001556139409281098772:eyu92k6escc&filter=1&q=",
+        url = urlWord + SearchWord,
+        xhr = new XMLHttpRequest();
     xhr.open("GET", url, true);
     xhr.onload = function(){
-      let json = JSON.parse(xhr.response).items;
-      let length = json.length;
-      var startTime = new Date();
+      let json = JSON.parse(xhr.response).items,
+          length = json.length,
+          fragment = document.createDocumentFragment();
       for (let i = 0; i < length|0; i=(i+1)|0) {
-        let a = document.createElement("a");
+        let a = document.createElement("a"),
+            div = document.createElement("div"),
+            strong = document.createElement("strong"),
+            p = document.createElement("p");
         a.href = json[i].link;
         a.target = "_blank";
-        let div = document.createElement("div");
-        let strong = document.createElement("strong");
-        strong.innerHTML(json[i].title);
-        div.appendChild(strong)
-        let p = document.createElement("p");
-        p.innerHTML(json[i].snippet);
-        div.appendChild(p)
-        fragment.appendChild(div);
+        a.appendChild(div);
+        div.appendChild(strong);
+        strong.textContent = json[i].title;
+        div.appendChild(p);
+        p.textContent = json[i].snippet;
+        fragment.appendChild(a);
       }
-      var endTime = new Date();
       document.getElementById('SearchResults').appendChild(fragment);
-      alert(endTime - startTime);
-      let prerender = document.createElement("link");
+      let prerender = document.createElement("link"),
+      prefetch = document.createElement("link");
       prerender.rel = "prerender";
       prerender.href = json[0].link;
       document.head.appendChild(prerender);
-      let prefetch = document.createElement("link");
       prefetch.rel = "prefetch";
       prefetch.href = json[0].link;
       prefetch.as = "html";
@@ -141,8 +140,8 @@
     let hss = ' | HSSearch';
     document.title = SearchWord + hss;
   }
-  let link = document.getElementsByTagName("a");
-  let linklength = link.length;
+  let link = document.getElementsByTagName("a"),
+      linklength = link.length;
   for(i = 0; i < linklength|0; i=(i+1)|0) {
       link[i].addEventListener("mousedown", function(e) {
           if (e.button === 0) {

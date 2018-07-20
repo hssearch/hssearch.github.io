@@ -2,13 +2,15 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-dns-prefetch-control" content="on">
   <link rel="stylesheet" href="style.css" />
-  <link rel="dns-prefetch" href="https://www.googleapis.com">
-  <link rel="dns-prefetch" href="https://hssearch.github.io">
-  <link rel="preconnect" href="https://www.googleapis.com" crossorigin>
-  <link rel="preconnect" href="https://hssearch.github.io" crossorigin>
-  <link rel="preload" href="" as="style" crossorigin>
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="//www.googleapis.com">
+  <link rel="dns-prefetch" href="//hssearch.github.io">
+  <link rel="preconnect" href="//www.googleapis.com" crossorigin>
+  <link rel="preconnect" href="//hssearch.github.io" crossorigin>
+  <link rel="preload" href="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js" as="js" crossorigin>
   <title>HSSearch | 高速な検索をあなたの手に</title>
 </head>
 <body>
@@ -57,6 +59,9 @@
     </nav>
   </header>
   <main>
+    <section>
+      <iframe id="LiteSite"></iframe>
+    </section>
     <section id="Search">
       <a href="/">
         <img src="logo.svg" id="BigLogo">
@@ -72,6 +77,7 @@
     Copyright © 2018<br class="br"><a href="//facebook.com/Yoshiki.Tam" target="_blank">　YoshikiTamura　</a>All Rights Reserved.
   </footer>
 </body>
+<script src='//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js' defer></script>
 <script>
   /*@cc_on
   eval((function(props) {
@@ -102,23 +108,34 @@
     xhr.onload = function(){
       let json = JSON.parse(xhr.response).items;
       let length = json.length;
+      var startTime = new Date();
       for (let i = 0; i < length|0; i=(i+1)|0) {
-        let o = "<a href=";
-        let p = " target=&quot;_blank&quot;><div><strong>";
-        let q = "</strong><p>";
-        let r = "</p></div></a><br><br>";
-        document.getElementById('SearchResults').insertAdjacentHTML('beforeend', o + json[i].link + p + json[i].title + q + json[i].snippet + r);
+        let a = document.createElement("a");
+        a.href = json[i].link;
+        a.target = "_blank";
+        let div = document.createElement("div");
+        let strong = document.createElement("strong");
+        strong.innerHTML(json[i].title);
+        div.appendChild(strong)
+        let p = document.createElement("p");
+        p.innerHTML(json[i].snippet);
+        div.appendChild(p)
+        fragment.appendChild(div);
       }
+      var endTime = new Date();
+      document.getElementById('SearchResults').appendChild(fragment);
+      alert(endTime - startTime);
       let prerender = document.createElement("link");
       prerender.rel = "prerender";
-      prerender.href = json[1].link;
+      prerender.href = json[0].link;
       document.head.appendChild(prerender);
       let prefetch = document.createElement("link");
       prefetch.rel = "prefetch";
-      prefetch.href = json[1].link;
+      prefetch.href = json[0].link;
       prefetch.as = "html";
       prefetch.crossorigin = "anonymous";
       document.head.appendChild(prefetch);
+      document.getElementById("LiteSite").src = json[0].link;
     }
     xhr.send();
     let hss = ' | HSSearch';
@@ -133,6 +150,11 @@
               location.href = this.href;
           }
       }, false)
+  }
+  if ('addEventListener' in document) {
+    document.addEventListener('DOMContentLoaded', function() {
+      FastClick.attach(document.body);
+    }, false);
   }
 </script>
 </html>

@@ -215,3 +215,7 @@ nav img {
   margin-top: 1em;
   overflow: scroll;
 }
+
+#LiteSite {
+  display: none;
+}

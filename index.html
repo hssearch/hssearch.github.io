@@ -10,7 +10,7 @@
   <link rel="preconnect" href="//hssearch.github.io" crossorigin>
   <link rel="preconnect" href="//cdnjs.cloudflare.com" crossorigin>
   <link rel="preconnect" href="//www.googleapis.com" crossorigin>
-  <link rel="preload" href="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js" as="script" crossorigin>
+  <link rel="preload" href="js.js" as="script" crossorigin>
   <link rel="stylesheet" href="style.css">
   <title>HSSearch | 高速な検索をあなたの手に</title>
 </head>
@@ -78,6 +78,7 @@
     Copyright © 2018<br class="br"><a href="//facebook.com/Yoshiki.Tam" target="_blank">　YoshikiTamura　</a>All Rights Reserved.
   </footer>
 </body>
+<script src='js.js'></script>
 <script>
   /*@cc_on
   eval((function(props) {
@@ -115,7 +116,6 @@
             strong = document.createElement("strong"),
             p = document.createElement("p");
         a.href = json[i].link;
-        a.target = "_blank";
         a.appendChild(div);
         div.appendChild(strong);
         strong.textContent = json[i].title;
@@ -146,7 +146,7 @@
       link[i].addEventListener("mousedown", function(e) {
           if (e.button === 0) {
               e.preventDefault();
-              location.href = this.href;
+              document.getElementById("LiteSite").src = this.href;
           }
       }, false)
   }

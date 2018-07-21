@@ -215,6 +215,9 @@ nav img {
   margin-top: 1em;
   overflow: scroll;
 }
+#SearchResults a{
+  margin-bottom: 1em;
+}
 
 /* 〜大スマホ縦 */
 @media (min-width: 480px) {

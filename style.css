@@ -228,11 +228,13 @@ nav img {
   background: #fff;
   width: 100vw;
   height: 100vh;
-  display: none;
+  visibility: hidden;
   position: fixed;
-  top: 0;
+  bottom: -100vh;
   left: 0;
   z-index: 99;
+  -webkit-transition: .3s;
+  transition: .3s;
 }
 #LiteSite iframe {
   width: 100%;

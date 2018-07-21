@@ -217,5 +217,21 @@ nav img {
 }
 
 #LiteSite {
+  background: #fff;
+  width: 100vw;
+  height: 100vh;
   display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
+#close {
+  width: 2em;
+  height: 2em;
+  background: #fff;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 99999;
 }

@@ -60,9 +60,8 @@
     </nav>
   </header>
   <main>
-    <section>
-      <span onclick="Close();" id="close">X</span>
-      <iframe id="LiteSite"></iframe>
+    <span onclick="Close();" id="close">X</span>
+    <section id="LiteSite">
     </section>
     <section id="Search">
       <a href="/">
@@ -95,7 +94,8 @@
   @*/
   window.renderComplete = true;
   let d = new URLSearchParams(window.location.search),
-      e = d.get('search');
+      e = d.get('search'),
+      LiteSite = document.getElementById("LiteSite");
   if (d.has('search')) {
     document.getElementById('SearchWord').value = e;
     GoogleSearch(e);
@@ -118,7 +118,7 @@
             div = document.createElement("div"),
             strong = document.createElement("strong"),
             p = document.createElement("p");
-        a.setAttribute("onclick", 'SiteResult("' + json[i].link + '");');
+        a.setAttribute("onclick", 'Open("' + json[i].link + '");');
         a.appendChild(div);
         div.appendChild(strong);
         strong.textContent = json[i].title;
@@ -127,7 +127,7 @@
         fragment.appendChild(a);
       }
       SearchResults.appendChild(fragment);
-      document.getElementById("LiteSite").src = json[0].link;
+      SiteResult(json[0].link);
       let prerender = document.createElement("link"),
       prefetch = document.createElement("link");
       prerender.rel = "prerender";
@@ -144,11 +144,17 @@
     document.title = SearchWord + hss;
   }
   function SiteResult(url) {
-    document.getElementById("LiteSite").src = url;
-    document.getElementById("LiteSite").style = "display:block;";
+    let iframe = document.createElement("iframe");
+    LiteSite.appendChild(iframe);
+    iframe.src = url;
+  }
+  function Open(url) {
+    SiteResult(url);
+    LiteSite.style = "display:block;";
   }
   function Close() {
-    document.getElementById("LiteSite").style = "";
+    LiteSite.style = "";
+    LiteSite.textContent = null;
   }
   if ('addEventListener' in document) {
     document.addEventListener('DOMContentLoaded', function() {

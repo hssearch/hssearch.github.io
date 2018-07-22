@@ -100,6 +100,10 @@ nav label {
   text-align: center;
   margin: 0 .5em;
 }
+#BigLogo {
+  width: 90%;
+  margin: auto;
+}
 #Search {
   width: 35vw;
   max-width: 700px;
@@ -107,13 +111,16 @@ nav label {
 }
 #SearchBox {
   margin-top: 2em;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 1.5em;
 }
 #SearchBox input {
   font-size: 1em;
-  width: calc(100% + 60px);
+  width: 100%;
   height: 2.5em;
   padding: 0 1em;
-  margin-left: calc(-30px - 1em);
+  margin-left: -1em;
   border: 0;
   border-radius: 2px;
   -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,.16),0 0 0 1px rgba(0,0,0,.08);

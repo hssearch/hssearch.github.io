@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta http-equiv="x-dns-prefetch-control" content="on">
   <link rel="dns-prefetch" href="//hssearch.github.io">
   <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
@@ -15,7 +15,6 @@
   <link rel="stylesheet" href="style.css">
   <title>HSSearch | 高速な検索をあなたの手に</title>
 </head>
-
 <body>
   <header>
     <nav>
@@ -72,7 +71,7 @@
         <img src="logo.svg" id="BigLogo">
       </a>
       <form id="SearchBox" onsubmit="let a = document.getElementById('SearchWord').value,search = '?search='; GoogleSearch(a);  history.replaceState('',a,search + a); return false;">
-        <input type="text" id="SearchWord" placeholder="HSSで検索">
+        <input type="text" id="SearchWord" placeholder="HSSで検索" autofocus>
       </form>
       <section id="SearchResults">
       </section>
@@ -111,8 +110,6 @@
   if (d.has('search')) {
     SearchTango.value = e;
     GoogleSearch(e);
-  } else {
-    SearchTango.focus();
   }
   function GoogleSearch(SearchWord) {
     xhr.open("GET", urlWord + SearchWord, true);
@@ -126,7 +123,7 @@
             div = document.createElement("div"),
             strong = document.createElement("strong"),
             p = document.createElement("p");
-        a.setAttribute("onclick", 'Open();');
+        a.setAttribute("onclick", 'Open("' + json[i].link + '");');
         a.appendChild(div);
         div.appendChild(strong);
         strong.textContent = json[i].title;
@@ -151,19 +148,17 @@
   }
   function SiteResult(url) {
     return () => {
-      Close();
       LiteSiteIframe.src = url;
     }
   }
-  function Open() {
+  function Open(url) {
     LiteSite.style = "visibility:visible;bottom:0;";
     close.style = "visibility:visible;opacity: 1;";
-    // setTimeout("Cancel()", 3000);
   }
   function Close() {
-    LiteSite.style = null;
-    LiteSiteIframe.src = null;
-    close.style = null;
+    LiteSite.style = "";
+    LiteSiteIframe.src = "";
+    close.style = "";
   }
   function Cancel() {
     if (LiteSiteIframe.onload !== undefined) {

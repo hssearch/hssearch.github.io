@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,6 +15,7 @@
   <link rel="stylesheet" href="style.css">
   <title>HSSearch | 高速な検索をあなたの手に</title>
 </head>
+
 <body>
   <header>
     <nav>
@@ -62,6 +64,7 @@
   <main>
     <span onclick="Close();" id="close">X</span>
     <section id="LiteSite">
+      <iframe id="LiteSiteIframe" sandbox="allow-scripts allow-forms"></iframe>
     </section>
     <section id="Search">
       <a href="/">
@@ -81,55 +84,58 @@
 <script src='//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js'></script>
 <script>
   /*@cc_on
-  eval((function(props) {
-    var a = [];
-    var b = props.length;
-    for (let i = 0 l = b|0;i<l|0;i=(i+1)|0){
-      let c = props[i];
-      window['_'+c]=window[c];
-      a.push(c+'=_'+c)
-    }
-    return 'var '+a.join(',');
-  })('document self top parent alert setInterval clearInterval setTimeout clearTimeout'.split(' ')));
-  @*/
+      eval((function(props) {
+        var a = [];
+        var b = props.length;
+        for (let i = 0 l = b|0;i<l|0;i=(i+1)|0){
+          let c = props[i];
+          window['_'+c]=window[c];
+          a.push(c+'=_'+c)
+        }
+        return 'var '+a.join(',');
+      })('document self top parent alert setInterval clearInterval setTimeout clearTimeout'.split(' ')));
+      @*/
   window.renderComplete = true;
   let d = new URLSearchParams(window.location.search),
       e = d.get('search'),
-      LiteSite = document.getElementById("LiteSite");
+      SearchTango = document.getElementById('SearchWord'),
+      LiteSite = document.getElementById("LiteSite"),
+      LiteSiteIframe = document.getElementById("LiteSiteIframe"),
+      SearchResults = document.getElementById('SearchResults'),
+      close = document.getElementById('close'),
+      fragment = document.createDocumentFragment(),
+      xhr = new XMLHttpRequest(),
+      hss = ' | HSSearch',
+      urlWord = "https://www.googleapis.com/customsearch/v1?key=AIzaSyD4HoWPYCz9YDWiQCAPARVVbXDh5wq28WA&cx=001556139409281098772:eyu92k6escc&filter=1&q=";
   if (d.has('search')) {
-    document.getElementById('SearchWord').value = e;
+    SearchTango.value = e;
     GoogleSearch(e);
   } else {
-    document.getElementById('SearchWord').focus()
+    SearchTango.focus();
   }
   function GoogleSearch(SearchWord) {
-    let urlWord = "https://www.googleapis.com/customsearch/v1?key=AIzaSyD4HoWPYCz9YDWiQCAPARVVbXDh5wq28WA&cx=001556139409281098772:eyu92k6escc&filter=1&q=",
-        url = urlWord + SearchWord,
-        xhr = new XMLHttpRequest();
-    xhr.open("GET", url, true);
-    xhr.onload = function(){
+    xhr.open("GET", urlWord + SearchWord, true);
+    xhr.onload = function() {
       let json = JSON.parse(xhr.response).items,
           length = json.length,
-          fragment = document.createDocumentFragment(),
-          SearchResults = document.getElementById('SearchResults');
-      SearchResults.textContent = null;
-      for (let i = 0; i < length|0; i=(i+1)|0) {
+          prerender = document.createElement("link"),
+          prefetch = document.createElement("link");
+      for (let i = 0; i < length | 0; i = (i + 1) | 0) {
         let a = document.createElement("a"),
             div = document.createElement("div"),
             strong = document.createElement("strong"),
             p = document.createElement("p");
-        a.setAttribute("onclick", 'Open("' + json[i].link + '");');
+        a.setAttribute("onclick", 'Open();');
         a.appendChild(div);
         div.appendChild(strong);
         strong.textContent = json[i].title;
         div.appendChild(p);
         p.textContent = json[i].snippet;
         fragment.appendChild(a);
+        SiteResult(json[0].link);
+        a.addEventListener("mouseover", SiteResult(json[i].link));
       }
       SearchResults.appendChild(fragment);
-      SiteResult(json[0].link);
-      let prerender = document.createElement("link"),
-      prefetch = document.createElement("link");
       prerender.rel = "prerender";
       prerender.href = json[0].link;
       document.head.appendChild(prerender);
@@ -140,21 +146,22 @@
       document.head.appendChild(prefetch);
     }
     xhr.send();
-    let hss = ' | HSSearch';
     document.title = SearchWord + hss;
   }
   function SiteResult(url) {
-    let iframe = document.createElement("iframe");
-    LiteSite.appendChild(iframe);
-    iframe.src = url;
+    return () => {
+      Close();
+      LiteSiteIframe.src = url;
+    }
   }
-  function Open(url) {
-    SiteResult(url);
+  function Open() {
     LiteSite.style = "visibility:visible;bottom:0;";
+    close.style = "visibility:visible;opacity: 1;";
   }
   function Close() {
-    LiteSite.style = "";
-    LiteSite.textContent = null;
+    LiteSite.style = null;
+    LiteSiteIframe.src = null;
+    close.style = null;
   }
   if ('addEventListener' in document) {
     document.addEventListener('DOMContentLoaded', function() {

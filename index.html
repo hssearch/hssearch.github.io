@@ -64,7 +64,8 @@
   <main>
     <span onclick="Close();" id="close">X</span>
     <section id="LiteSite">
-      <iframe id="LiteSiteIframe" sandbox="allow-scripts allow-forms"></iframe>
+      <iframe id="LiteSiteIframe" sandbox="allow-scripts allow-forms">
+      </iframe>
     </section>
     <section id="Search">
       <a href="/">
@@ -157,16 +158,27 @@
   function Open() {
     LiteSite.style = "visibility:visible;bottom:0;";
     close.style = "visibility:visible;opacity: 1;";
+    // setTimeout("Cancel()", 3000);
   }
   function Close() {
     LiteSite.style = null;
     LiteSiteIframe.src = null;
     close.style = null;
   }
+  function Cancel() {
+    if (LiteSiteIframe.onload !== undefined) {
+      alert("iframe on laad.");
+    }
+  }
   if ('addEventListener' in document) {
     document.addEventListener('DOMContentLoaded', function() {
       FastClick.attach(document.body);
     }, false);
+  }
+  document.onkeydown = function(e) {
+    if (e.which == 27) {
+      Close();
+    }
   }
 </script>
 </html>

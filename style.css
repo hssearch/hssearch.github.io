@@ -261,8 +261,8 @@ nav img {
   z-index: 99999;
   visibility: hidden;
   opacity: 0;
-  -webkit-transition: .3s;
-  transition: .3s;
+  -webkit-transition: .2s;
+  transition: .2s;
 }
 a {
   cursor: pointer;

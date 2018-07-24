@@ -112,6 +112,7 @@
     GoogleSearch(e);
   }
   function GoogleSearch(SearchWord) {
+    SearchResults.textContent = null;
     xhr.open("GET", urlWord + SearchWord, true);
     xhr.onload = function() {
       let json = JSON.parse(xhr.response).items,
@@ -159,11 +160,6 @@
     LiteSite.style = "";
     LiteSiteIframe.src = "";
     close.style = "";
-  }
-  function Cancel() {
-    if (LiteSiteIframe.onload !== undefined) {
-      alert("iframe on laad.");
-    }
   }
   if ('addEventListener' in document) {
     document.addEventListener('DOMContentLoaded', function() {

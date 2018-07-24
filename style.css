@@ -114,6 +114,7 @@ nav label {
   position: -webkit-sticky;
   position: sticky;
   top: 1.5em;
+  z-index: 1;
 }
 #SearchBox input {
   font-size: 1em;
@@ -141,6 +142,7 @@ nav label {
 nav input:checked + div {
   opacity: 1;
   visibility: visible;
+  z-index: 999;
 }
 nav div {
   width: 200vw;

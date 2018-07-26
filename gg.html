@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="//hssearch.github.io">
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="//www.googleapis.com">
+  <link rel="preconnect" href="//hssearch.github.io" crossorigin>
+  <link rel="preconnect" href="//cdnjs.cloudflare.com" crossorigin>
+  <link rel="preconnect" href="//www.googleapis.com" crossorigin>
+  <link rel="preload" href="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js" as="script" crossorigin>
+  <link rel="stylesheet" href="style.css">
+  <title>HSSearch | 高速な検索をあなたの手に</title>
+</head>
+<script>
+var XHR = new XMLHttpRequest();
+query = "https://hssearch.github.io/index.php?url=https://twitter.com";
+XHR.open("GET",query,true);
+XHR.onreadystatechange = function(){
+  console.log(XHR.response);
+
+};
+XHR.send(null);
+</script>

@@ -56,6 +56,10 @@ function SiteResult(url) {
   }
 }
 function Open(url) {
+  if (LiteSiteIframe.src =! url) {
+    alert(url);
+    SiteResult(url);
+  }
   LiteSite.style = "visibility:visible;bottom:0;";
   close.style = "visibility:visible;opacity: 1;";
 }

@@ -56,7 +56,7 @@ function SiteResult(url) {
   }
 }
 function Open(url) {
-  if (LiteSiteIframe.src =! url) {
+  if (LiteSiteIframe.src = url) {
     alert(url);
     SiteResult(url);
   }

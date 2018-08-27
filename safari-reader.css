@@ -8,27 +8,30 @@ body {
   margin: 30px auto;
   padding: 60px;
   background: #fff;
+  -webkit-box-shadow: 0 3px 8px 0 rgba(0,0,0,.2),0 0 0 1px rgba(0,0,0,.08);
+          box-shadow: 0 3px 8px 0 rgba(0,0,0,.2),0 0 0 1px rgba(0,0,0,.08);
+  border-radius: 3px;
 }
 p {
-    margin-top: 0px;
-    margin-bottom: 0px;
-    text-align: justify;
-    line-height: 1.5;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  text-align: justify;
+  line-height: 1.5;
 }
 p + p {
-    text-indent: 1.5em;
+  text-indent: 1.5em;
 }
 h1, h2, h3, h4, h5, h6 {
-
+  font-weight: bold;
 }
 figcaption {
-    font-size: 75%;
+  font-size: 75%;
 }
 figcaption p {
-    margin: 0px;
+  margin: 0px;
 }
 a {
-    pointer-events: none;
-    cursor: default;
-    color: inherit !important;
+  pointer-events: none;
+  cursor: default;
+  color: inherit !important;
 }

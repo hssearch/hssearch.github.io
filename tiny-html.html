@@ -62,7 +62,10 @@
     </nav>
   </header>
   <main>
-    <span onclick="Close();" id="close">X</span>
+    <div id="close">
+      <span onclick="Close();">X</span>
+      <input type="checkbox" id="ReadMode" checked/>
+    </div>
     <section id="LiteSite">
       <iframe id="LiteSiteIframe">
       </iframe>
@@ -134,7 +137,15 @@ function GoogleSearch(a) {
 function SiteResult(a) {
   return function() {
     LiteSiteIframe.src = "";
-    LiteSiteIframe.src = "tiny-html.php?link=" + a
+    LiteSiteIframe.src = "tiny-html.php?link=" + a;
+    document.getElementById("ReadMode").setAttribute("onclick", 'ReadMode("' + a + '");');
+  }
+}
+function ReadMode(a) {
+  if (document.getElementById("ReadMode").checked !== true) {
+    LiteSiteIframe.src = "full-html.php?link=" + a;
+  } else {
+    LiteSiteIframe.src = "tiny-html.php?link=" + a;
   }
 }
 
@@ -148,6 +159,7 @@ function Open(a) {
 function Close() {
   LiteSite.style = "";
   close.style = ""
+  document.getElementById("ReadMode").checked = true;
 }
 "addEventListener" in document && document.addEventListener("DOMContentLoaded", function() {
   FastClick.attach(document.body)

@@ -1,3 +1,6 @@
+<head>
+  <link rel="preload" href="safari-reader.min.css" as="style" crossorigin>
+</head>
 <?php
   mb_language('Japanese');
   $url = $_GET["link"];
@@ -5,7 +8,7 @@
   $domains = explode("/",$url);
   $domain = $domains[0]."//".$domains[2];
   $html = mb_convert_encoding($html, 'utf-8', 'auto');
-  $html=str_replace("'/","'".$domain."/",$html);
-  $html=str_replace('"/','"'.$domain."/",$html);
+  $html = str_replace("'/","'".$domain."/",$html);
+  $html = str_replace('"/','"'.$domain."/",$html);
   echo $html;
 ?>

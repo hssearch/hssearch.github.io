@@ -271,6 +271,52 @@ a {
           box-shadow: 0 2px 2px 0 rgba(0,0,0,.16),0 0 0 1px rgba(0,0,0,.08);
 }
 
+#ReadMode {
+  visibility : hidden;
+  width: 37px;
+  position: relative;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+#ReadMode:before {
+  content: "";
+  height: 14px;
+  width: 37px;
+  margin: 0 auto;
+  background: #b9b9b9;
+  border-radius: 7px;
+  display: block;
+  visibility : visible;
+  -webkit-transition: .1s;
+  transition: .1s;
+  z-index: 0;
+}
+#ReadMode:after {
+  content: "";
+  height: 20px;
+  width: 20px;
+  background: #fafafa;
+  border-radius: 50%;
+  -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.4);
+          box-shadow: 0 1px 3px rgba(0,0,0,.4);
+  display: block;
+  visibility : visible;
+  -webkit-transition: .2s;
+  transition: .2s;
+  position: absolute;
+  top: -3px;
+  left: 0;
+  z-index: 1;
+}
+#ReadMode:checked:before {
+  background: rgba(66,133,244,.5);
+}
+#ReadMode:checked:after {
+  background: #4285f4;
+  left: 17px;
+}
+
 @media (max-width: 460px) {
   #BigLogo {
     width: 70%;

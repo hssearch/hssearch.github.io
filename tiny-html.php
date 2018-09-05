@@ -1,6 +1,7 @@
 <head>
   <link rel="preload" href="safari-reader.min.css" as="style" crossorigin>
   <meta content="4233600" http-equiv="expires"/>
+  <link rel="stylesheet" href="safari-reader.min.css">
 </head>
 <?php
   mb_language('Japanese');
@@ -15,4 +16,3 @@
   $htmls = (explode("/body>", $htmls[1]))[0];
   echo $htmls;
 ?>
-<link rel="stylesheet" href="safari-reader.min.css">

@@ -11,7 +11,6 @@
   <link rel="preconnect" href="//hssearch.github.io" crossorigin>
   <link rel="preconnect" href="//cdnjs.cloudflare.com" crossorigin>
   <link rel="preconnect" href="//www.googleapis.com" crossorigin>
-  <link rel="preload" href="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js" as="script" crossorigin>
   <link rel="preload" href="safari-reader.min.css" as="style" crossorigin>
   <link rel="stylesheet" href="style.css">
   <title>HSSearch | 高速な検索をあなたの手に</title>
@@ -71,7 +70,7 @@
       </iframe>
     </section>
     <section id="Search">
-      <a href="/">
+      <a href="tiny-html.html">
         <img src="logo.svg" id="BigLogo">
       </a>
       <form id="SearchBox" onsubmit="let a = document.getElementById('SearchWord').value,search = '?search='; GoogleSearch(a);  history.replaceState('',a,search + a); return false;">
@@ -100,7 +99,6 @@ var d = new URLSearchParams(window.location.search),
   hss = " | HSSearch",
   urlWord = "https://www.googleapis.com/customsearch/v1?key=AIzaSyD4HoWPYCz9YDWiQCAPARVVbXDh5wq28WA&cx=001556139409281098772:eyu92k6escc&filter=1&lr=lang_ja&q=";
 d.has("search") && (SearchTango.value = e, GoogleSearch(e));
-
 function GoogleSearch(a) {
   SearchResults.textContent = null;
   xhr.open("GET", urlWord + a, !0);
@@ -133,7 +131,6 @@ function GoogleSearch(a) {
   xhr.send();
   document.title = a + hss
 }
-
 function SiteResult(a) {
   return function() {
     LiteSiteIframe.src = "";
@@ -148,22 +145,17 @@ function ReadMode(a) {
     LiteSiteIframe.src = "tiny-html.php?link=" + a;
   }
 }
-
 function Open(a) {
   SiteResult(a);
 
   LiteSite.style = "visibility:visible;bottom:0;";
   close.style = "visibility:visible;opacity: 1;"
 }
-
 function Close() {
   LiteSite.style = "";
   close.style = ""
   document.getElementById("ReadMode").checked = true;
 }
-"addEventListener" in document && document.addEventListener("DOMContentLoaded", function() {
-  FastClick.attach(document.body)
-}, !1);
 document.onkeydown = function(a) {
   27 == a.which && Close()
 };

@@ -223,14 +223,6 @@ nav h2,nav h3 {
   margin: 1em 0;
 }
 
-/* 〜大スマホ縦 */
-@media (min-width: 480px) {
-  /* 大スマホ横・タブレット縦〜 */
-}
-@media (min-width: 769px) {
-  /* タブレット横・PC〜 */
-}
-
 #LiteSite {
   width: 100vw;
   height: 100vh;
@@ -274,4 +266,21 @@ a {
 #SearchResults div:hover {
   -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,.16),0 0 0 1px rgba(0,0,0,.08);
           box-shadow: 0 2px 2px 0 rgba(0,0,0,.16),0 0 0 1px rgba(0,0,0,.08);
+}
+
+@media (max-width: 460px) {
+  #BigLogo {
+    width: 70%;
+  }
+  #Search {
+    width: 100vw;
+    min-width: 0;
+    overflow: hidden;
+  }
+  #SearchBox input {
+    margin: 0;
+  }
+  #SearchResults div {
+    padding: .5em 1em;
+  }
 }

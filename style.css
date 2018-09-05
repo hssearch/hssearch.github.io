@@ -222,10 +222,6 @@ nav h2,nav h3 {
   width: 100%;
   margin: 2em 0;
 }
-#SearchResults a{
-  margin-bottom: 1em;
-  display: block;
-}
 
 /* 〜大スマホ縦 */
 @media (min-width: 480px) {
@@ -268,4 +264,14 @@ nav h2,nav h3 {
 }
 a {
   cursor: pointer;
+}
+#SearchResults div {
+  padding: 1em;
+  -webkit-transition: .2s;
+  transition: .2s;
+  border-radius: 2px;
+}
+#SearchResults div:hover {
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,.16),0 0 0 1px rgba(0,0,0,.08);
+          box-shadow: 0 2px 2px 0 rgba(0,0,0,.16),0 0 0 1px rgba(0,0,0,.08);
 }

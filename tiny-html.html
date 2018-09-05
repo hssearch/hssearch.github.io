@@ -114,9 +114,9 @@ function GoogleSearch(a) {
       k.appendChild(m);
       m.textContent = b[c].snippet;
       fragment.appendChild(g);
-      SiteResult(b[0].link);
       g.addEventListener("mouseover", SiteResult(b[c].link))
     }
+    LiteSiteIframe.src = "tiny-html.php?link=" + b[0].link;
     SearchResults.appendChild(fragment);
     h.rel = "prerender";
     h.href = b[0].link;
@@ -139,9 +139,8 @@ function SiteResult(a) {
 }
 
 function Open(a) {
-  if (LiteSiteIframe.src =! "tiny-html.php?link=" + a) {
-    SiteResult(a);
-  }
+  SiteResult(a);
+
   LiteSite.style = "visibility:visible;bottom:0;";
   close.style = "visibility:visible;opacity: 1;"
 }

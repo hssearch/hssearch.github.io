@@ -30,8 +30,3 @@ figcaption {
 figcaption p {
   margin: 0px;
 }
-a {
-  pointer-events: none;
-  cursor: default;
-  color: inherit !important;
-}

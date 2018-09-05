@@ -35,7 +35,6 @@ table {
 }
 input,select {
   vertical-align: middle;
-  display: none;
 }
 img {
   display: block;
@@ -82,6 +81,9 @@ footer {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+header input {
+  display: none;
 }
 nav {
   list-style: none;

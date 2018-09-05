@@ -1,5 +1,6 @@
 <head>
   <link rel="preload" href="safari-reader.min.css" as="style" crossorigin>
+  <meta content="4233600" http-equiv="expires"/>
 </head>
 <?php
   mb_language('Japanese');
